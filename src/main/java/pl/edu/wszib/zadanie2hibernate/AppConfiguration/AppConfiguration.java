@@ -12,7 +12,7 @@ import pl.edu.wszib.zadanie2hibernate.services.impl.GUIimpl;
 public class AppConfiguration {
 
     @Bean
-    public SessionFactory hibernateSessionFactory() {
+    public SessionFactory SessionFactory() {
         return new org.hibernate.cfg.Configuration().configure().buildSessionFactory();
     }
 

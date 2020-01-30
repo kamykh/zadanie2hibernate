@@ -34,45 +34,57 @@ public class ProductDAOimpl implements IProductDAO {
             }
         }
     }
-
+        //w sumie moga byc voidy
     @Override
-    public List<Product> showContent() {
+    public List<Object[]> showContent() {
         Session session;
         session = this.sessionFactory.openSession();
-        List<Product> productList = session.createQuery("SELECT * FROM products").list();
+        List<Object[]> productList = (List<Object[]>)session.createSQLQuery("SELECT * FROM products").list();
+        for(Object[] product : productList){
+            System.out.println(product[0] + " " + product[1] + " " + product[2] + " " + product[3]);
+        }
         return productList;
     }
 
     @Override
-    public List<Product> showByAmountLowerThan(int amount) {
+    public List<Object[]> showByAmountLowerThan(int amount) {
         Session session;
         session = this.sessionFactory.openSession();
-        List<Product> productList = session.createQuery("SELECT * FROM products WHERE amount < " + amount).list();
+        List<Object[]> productList = (List<Object[]>)session.createSQLQuery("SELECT * FROM products WHERE amount < " + amount).list();
+        for(Object[] product : productList){
+            System.out.println(product[0] + " " + product[1] + " " + product[2] + " " + product[3]);
+        }
         return productList;
     }
 
     @Override
-    public List<Product> showWhatsSold() {
+    public List<Object[]> showWhatsSold() {
         Session session;
         session = this.sessionFactory.openSession();
-        List<Product> productList = session.createQuery("SELECT * FROM products WHERE amount = 0").list();
+        List<Object[]> productList = (List<Object[]>)session.createSQLQuery("SELECT * FROM products WHERE amount = 0").list();
+        for(Object[] product : productList){
+            System.out.println(product[0] + " " + product[1] + " " + product[2] + " " + product[3]);
+        }
         return productList;
     }
 
     @Override
-    public List<Product> showAmountsInCategories() {
+    public List<Object[]> showAmountsInCategories() {
         Session session;
         session = this.sessionFactory.openSession();
-        List<Product> productList = session.createQuery("SELECT category,amount FROM products").list();
+        List<Object[]> productList = (List<Object[]>)session.createSQLQuery("SELECT category,amount FROM products").list();
+        for(Object[] product : productList){
+            System.out.println(product[0] + " " + product[1]);
+        }
         return productList;
     }
 
     @Override
-    public List<Product> showProducers() {
+    public void showProducers() {
         Session session;
         session = this.sessionFactory.openSession();
-        List<Product> productList = session.createQuery("SELECT DISTINCT producer FROM products").list();
-        return productList;
+        List<Product> result = session.createSQLQuery("SELECT DISTINCT producer FROM products").list();
+        System.out.println(result);
     }
 
    /* @Override
@@ -99,7 +111,7 @@ public class ProductDAOimpl implements IProductDAO {
         Session session;
 
         session = this.sessionFactory.openSession();
-        Product product = (Product) session.createQuery("SELECT * FROM products WHERE id = " + id).uniqueResult();
+        Product product = (Product)session.createSQLQuery("SELECT * FROM products WHERE id = " + id).addEntity(Product.class).uniqueResult();
 
         if (!(product.getAmount()<amount)) {
             product.setAmount(product.getAmount() - amount);

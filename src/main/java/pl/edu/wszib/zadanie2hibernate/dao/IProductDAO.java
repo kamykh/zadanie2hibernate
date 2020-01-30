@@ -7,9 +7,9 @@ import java.util.List;
 public interface IProductDAO {
     void addProduct(Product product);
     void buy(int id, int amount);
-    List<Product> showContent();
-    List<Product> showByAmountLowerThan(int amount);
-    List<Product> showWhatsSold();
-    List<Product> showAmountsInCategories();
-    List<Product> showProducers();
+    List<Object[]> showContent();
+    List<Object[]> showByAmountLowerThan(int amount);
+    List<Object[]> showWhatsSold();
+    List<Object[]> showAmountsInCategories();
+    void showProducers();
 }

@@ -3,8 +3,11 @@ package pl.edu.wszib.zadanie2hibernate.services.impl;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import pl.edu.wszib.zadanie2hibernate.dao.IProductDAO;
+import pl.edu.wszib.zadanie2hibernate.models.Product;
 import pl.edu.wszib.zadanie2hibernate.services.GUI;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class GUIimpl implements GUI {
@@ -30,7 +33,8 @@ public class GUIimpl implements GUI {
         System.out.println("2. Buy product");
         System.out.println("3. Show amount in category");
         System.out.println("4. Show available producers");
-        System.out.println("5. Quit");
+        System.out.println("5. Add");
+        System.out.println("6. Quit");
 
         Scanner scanner = new Scanner(System.in);
         String linia = scanner.nextLine();
@@ -61,11 +65,16 @@ public class GUIimpl implements GUI {
                 if(linia.equals("5")){
                     var3 = 4;
                 }
+            case 54:
+                if(linia.equals("6")){
+                    var3 = 5;
+                }
 
         }
 
         switch(var3){
             case 0:
+
                 productDAO.showContent();
                 showMenu();
                 break;
@@ -95,6 +104,28 @@ public class GUIimpl implements GUI {
 
             case 4:
 
+                System.out.println("Podaj id: ");
+                linia = scanner.nextLine();
+                id = Integer.parseInt(linia);
+
+                System.out.println("Podaj producer: ");
+                linia = scanner.nextLine();
+                String producer = linia;
+
+                System.out.println("Podaj category: ");
+                linia = scanner.nextLine();
+                String category = linia;
+
+                System.out.println("Podaj ilosc: ");
+                linia = scanner.nextLine();
+                amount = Integer.parseInt(linia);
+
+                Product product = new Product(id,producer,category, amount);
+                productDAO.addProduct(product);
+                System.out.println("dodano produkt do db");
+                showMenu();
+
+            case 5:
                 break;
 
             default:
